@@ -17,7 +17,7 @@ type MusicLibrary struct {
 }
 
 // Open connects to existing audio repository
-func Open(cfg *models.Config) (*MusicLibrary, error) {
+func Open(cfg models.Config) (*MusicLibrary, error) {
 	fmt.Printf("Initializing library...\n\n")
 
 	db, err := models.NewDB(cfg)
@@ -29,13 +29,13 @@ func Open(cfg *models.Config) (*MusicLibrary, error) {
 }
 
 // Close closes library
-func (lib *MusicLibrary) Close() error {
+func (lib MusicLibrary) Close() error {
 	err := lib.db.Close()
 	return err
 }
 
 // Index inserts song into library
-func (lib *MusicLibrary) Index(filename string) error {
+func (lib MusicLibrary) Index(filename string) error {
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		return fmt.Errorf("Index: file not found")
 	}
@@ -59,7 +59,7 @@ func (lib *MusicLibrary) Index(filename string) error {
 }
 
 // Recognize searches library and returns table
-func (lib *MusicLibrary) Recognize(filename string) (result string, err error) {
+func (lib MusicLibrary) Recognize(filename string) (result string, err error) {
 	fmt.Printf("Recognizing '%s'...\n", filename)
 
 	hashArray, err := fingerprint.Fingerprint(filename)
@@ -74,7 +74,7 @@ func (lib *MusicLibrary) Recognize(filename string) (result string, err error) {
 }
 
 // Delete deletes song from library
-func (lib *MusicLibrary) Delete(song string) (affected int64, err error) {
+func (lib MusicLibrary) Delete(song string) (affected int64, err error) {
 	fmt.Printf("Deleting '%s'...\n", song)
 	return models.Delete(lib.db, song)
 }

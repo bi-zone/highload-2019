@@ -16,7 +16,7 @@ func Fingerprint(filename string) (hash []int, err error) {
 	pcm64, err := decode.Decode(filename)
 	_ = pcm64 // Avoid declared and not used
 
-	// TODO: Impliment
+	// TODO: Implement
 
 	return nil, err
 }
