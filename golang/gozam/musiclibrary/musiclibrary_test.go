@@ -9,7 +9,7 @@ import (
 )
 
 func TestOneTrack(t *testing.T) {
-	cfg := &models.Config{
+	cfg := models.Config{
 		User:     os.Getenv("DBUSER"),
 		Password: os.Getenv("DBPASSWORD"),
 		DBname:   os.Getenv("DBNAME"),
