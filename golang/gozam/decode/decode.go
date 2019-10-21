@@ -32,7 +32,6 @@ func Mp3(filename string) ([]float64, error) {
 	defer decoder.Close()
 
 	decoder.GetFormat()
-
 	var pcm64 []float64
 	tmp := make([]float32, chunkSize/4)
 	for {
@@ -58,7 +57,7 @@ func Mp3(filename string) ([]float64, error) {
 	return pcm64, nil
 }
 
-// Decode mp3, wav or ogg files
+// Decode file
 func Decode(filename string) (pcm []float64, err error) {
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		return nil, fmt.Errorf("Decode: file not found")

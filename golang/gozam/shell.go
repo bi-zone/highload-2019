@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	cfg := &models.Config{
+	cfg := models.Config{
 		User:     os.Getenv("DBUSER"),
 		Password: os.Getenv("DBPASSWORD"),
 		DBname:   os.Getenv("DBNAME"),

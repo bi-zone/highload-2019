@@ -16,7 +16,12 @@ type Config struct {
 
 // NewDB Creates new PostgresDB
 func NewDB(cfg *Config) (*sql.DB, error) {
-	dbinfo := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable", cfg.User, cfg.Password, cfg.Host, cfg.Port, cfg.DBname)
+	dbinfo := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		cfg.User,
+		cfg.Password,
+		cfg.Host,
+		cfg.Port,
+		cfg.DBname)
 	db, err := sql.Open("postgres", dbinfo)
 	if err != nil {
 		return nil, err
@@ -32,18 +37,18 @@ func NewDB(cfg *Config) (*sql.DB, error) {
 
 // Index indexs song in db
 func Index(db *sql.DB, songName string, hashArray []int) error {
-	// TODO: Impliment
+	// TODO: Implement
 	return nil
 }
 
 // Recognize recognizes song in db
 func Recognize(db *sql.DB, hashArray []int) (string, error) {
-	// TODO: Impliment
+	// TODO: Implement
 	return "", nil
 }
 
 // Delete deletes song from bd
 func Delete(db *sql.DB, name string) (affected int64, err error) {
-	// TODO: Impliment
+	// TODO: Implement
 	return 0, nil
 }
