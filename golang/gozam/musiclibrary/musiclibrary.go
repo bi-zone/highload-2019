@@ -3,14 +3,11 @@ package musiclibrary
 import (
 	"database/sql"
 	"fmt"
-	"io/ioutil"
 	"os"
-	"path/filepath"
 	"strings"
 
-	"github.com/a.karpov/gozam/fingerprint"
-	"github.com/a.karpov/gozam/models"
-	"github.com/remeh/sizedwaitgroup"
+	"github.com/glumpo/highload-2019/golang/gozam/fingerprint"
+	"github.com/glumpo/highload-2019/golang/gozam/models"
 )
 
 // MusicLibrary is the central structure of the package.
@@ -58,30 +55,7 @@ func (lib *MusicLibrary) Index(filename string) error {
 
 	err = models.Index(lib.db, songName, hashArray)
 
-	return nil
-}
-
-// IndexDir indexes whole directory
-func (lib *MusicLibrary) IndexDir(path string) error {
-	files, err := ioutil.ReadDir(path)
-	if err != nil {
-		return fmt.Errorf("IndexDir: invalid directory '%s'", path)
-	}
-
-	wg := sizedwaitgroup.New(8)
-	for _, f := range files {
-		filename := path + "/" + f.Name()
-		if filepath.Ext(f.Name()) == ".mp3" {
-			wg.Add()
-			go func() {
-				defer wg.Done()
-				lib.Index(filename)
-			}()
-		}
-	}
-	wg.Wait()
-
-	return nil
+	return err
 }
 
 // Recognize searches library and returns table
@@ -97,30 +71,6 @@ func (lib *MusicLibrary) Recognize(filename string) (result string, err error) {
 
 	result = fmt.Sprintf("Best match: %s\n", songName)
 	return
-}
-
-// RecognizeDir recognizes whole directory
-func (lib *MusicLibrary) RecognizeDir(path string) error {
-	files, err := ioutil.ReadDir(path)
-	if err != nil {
-		return fmt.Errorf("IndexDir: invalid directory '%s'", path)
-	}
-
-	for _, f := range files {
-		filename := path + "/" + f.Name()
-		if filepath.Ext(f.Name()) == ".mp3" {
-			res, err := lib.Recognize(filename)
-
-			if err != nil {
-				fmt.Println(err)
-				continue
-			}
-
-			fmt.Println(res)
-		}
-	}
-
-	return nil
 }
 
 // Delete deletes song from library

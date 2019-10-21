@@ -4,8 +4,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/a.karpov/gozam/models"
-	"github.com/a.karpov/gozam/musiclibrary"
+	"github.com/glumpo/highload-2019/golang/gozam/models"
+	"github.com/glumpo/highload-2019/golang/gozam/musiclibrary"
+
 	"github.com/abiosoft/ishell"
 	_ "github.com/lib/pq"
 )

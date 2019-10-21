@@ -4,14 +4,10 @@ import (
 	"bytes"
 	"encoding/binary"
 	"fmt"
-	"io"
-	"log"
 	"os"
 	"path/filepath"
 
-	"github.com/jfreymuth/oggvorbis"
 	"github.com/kisasexypantera94/go-mpg123/mpg123"
-	"github.com/youpy/go-wav"
 )
 
 /*
@@ -23,12 +19,16 @@ import "C"
 const chunkSize = 2048
 
 // Mp3 decodes mp3 files using `libmpg123`
-func Mp3(filename string) []float64 {
+func Mp3(filename string) ([]float64, error) {
 	decoder, err := mpg123.NewDecoder("", C.MPG123_MONO_MIX|C.MPG123_FORCE_FLOAT)
-	checkErr(err)
+	if err != nil {
+		return nil, err
+	}
 
 	err = decoder.Open(filename)
-	checkErr(err)
+	if err != nil {
+		return nil, err
+	}
 	defer decoder.Close()
 
 	decoder.GetFormat()
@@ -51,43 +51,7 @@ func Mp3(filename string) []float64 {
 	}
 
 	decoder.Delete()
-	return pcm64
-}
-
-// Ogg decodes ogg files
-func Ogg(filename string) []float64 {
-	f, _ := os.Open(filename)
-	defer f.Close()
-	var r io.Reader
-	r = f
-	pcm32, _, _ := oggvorbis.ReadAll(r)
-	pcm64 := make([]float64, len(pcm32))
-	for i := 0; i < len(pcm32); i++ {
-		pcm64[i] = (float64)(pcm32[i])
-	}
-
-	return pcm64
-}
-
-// Wav decodes wav files
-func Wav(filename string) []float64 {
-	file, _ := os.Open(filename)
-	defer file.Close()
-	reader := wav.NewReader(file)
-
-	var pcm []float64
-	for {
-		samples, err := reader.ReadSamples()
-		if err == io.EOF {
-			break
-		}
-
-		for _, sample := range samples {
-			pcm = append(pcm, (reader.FloatValue(sample, 0)+reader.FloatValue(sample, 1))/2)
-		}
-	}
-
-	return pcm
+	return pcm64, nil
 }
 
 // Decode mp3, wav or ogg files
@@ -99,19 +63,12 @@ func Decode(filename string) (pcm []float64, err error) {
 	var pcm64 []float64
 	switch filepath.Ext(filename) {
 	case ".mp3":
-		pcm64 = Mp3(filename)
-	case ".wav":
-		pcm64 = Wav(filename)
-	case ".ogg":
-		pcm64 = Ogg(filename)
+		pcm64, err = Mp3(filename)
 	default:
 		return nil, fmt.Errorf("Decode: invalid file")
 	}
-	return pcm64, nil
-}
-
-func checkErr(err error) {
 	if err != nil {
-		log.Panic(err)
+		return nil, err
 	}
+	return pcm64, nil
 }
