@@ -4,11 +4,12 @@ import (
 	"os"
 	"testing"
 
-	"github.com/kisasexypantera94/khalzam/musiclibrary"
+	"github.com/glumpo/highload-2019/golang/gozam/models"
+	"github.com/glumpo/highload-2019/golang/gozam/musiclibrary"
 )
 
 func TestOneTrack(t *testing.T) {
-	cfg := &musiclibrary.Config{
+	cfg := &models.Config{
 		User:     os.Getenv("DBUSER"),
 		Password: os.Getenv("DBPASSWORD"),
 		DBname:   os.Getenv("DBNAME"),
@@ -19,8 +20,8 @@ func TestOneTrack(t *testing.T) {
 	musicLib, _ := musiclibrary.Open(cfg)
 	defer musicLib.Close()
 
-	name := "китай брусника - сломался антигравитационный двигатель, решили посидеть у костра (bonus track).mp3"
-	musicLib.Index(name)
+	name := "../samples/forest.mp3"
+	_ = musicLib.Index(name)
 	result, err := musicLib.Recognize(name)
 	if err != nil {
 		t.Error(err)
