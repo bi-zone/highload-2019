@@ -1,6 +1,5 @@
 ## About
- Algrorithm is based on
-[this article](https://www.toptal.com/algorithms/shazam-it-music-processing-fingerprinting-and-recognition) by Jovan Jovanovic
+ Посмотреть примерный алгоритм можно [тут](https://habr.com/ru/post/181654), но в статье есть проблемы, потому делать точно так не стоит
 
 ## Dependencies
 Для декодирования mp3 рекомендуется использовать библиотеку mpg123 (враперы над сишным кодом в decode) либо внимательно отнестись к подбору альтернативы
