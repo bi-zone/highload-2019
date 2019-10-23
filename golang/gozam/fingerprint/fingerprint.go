@@ -8,7 +8,7 @@ import (
 )
 
 // Fingerprint constructs fingerprint for song and returns hash
-func Fingerprint(filename string) (hash []int, err error) {
+func Fingerprint(filename string) (hashArray []int, err error) {
 	// []int type for hash surely may be chanched
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		return nil, fmt.Errorf("Fingerprint: file not found")

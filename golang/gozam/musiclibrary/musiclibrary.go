@@ -40,6 +40,7 @@ func (lib MusicLibrary) Index(filename string) error {
 		return fmt.Errorf("Index: file not found")
 	}
 
+	// NOTE: name of the song doesnt contain .mp3 nor full path
 	fmt.Printf("Indexing '%s'...\n", filename)
 	dotIdx := strings.LastIndex(filename, ".")
 	slashIdx := strings.LastIndex(filename, "/")

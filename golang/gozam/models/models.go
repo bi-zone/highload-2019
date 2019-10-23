@@ -44,7 +44,7 @@ func Index(db *sql.DB, songName string, hashArray []int) error {
 // Recognize recognizes song in db
 func Recognize(db *sql.DB, hashArray []int) (string, error) {
 	// TODO: Implement
-	return "", nil
+	return "Not Found", nil
 }
 
 // Delete deletes song from bd
