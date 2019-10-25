@@ -2,6 +2,7 @@ package musiclibrary_test
 
 import (
 	"os"
+	"path/filepath"
 	"testing"
 
 	"github.com/glumpo/highload-2019/golang/gozam/models"
@@ -20,14 +21,22 @@ func TestOneTrack(t *testing.T) {
 	musicLib, _ := musiclibrary.Open(cfg)
 	defer musicLib.Close()
 
-	name := "../samples/forest.mp3"
-	_ = musicLib.Index(name)
-	result, err := musicLib.Recognize(name)
+	originName := "kitay brusnika himky les (forest)"
+	sampleName := "forest"
+
+	originFileName := originName + ".mp3"
+	sampleFileName := sampleName + ".mp3"
+
+	originPath := filepath.Join("testdata/origin", originFileName)
+	samplePath := filepath.Join("testdata/sample", sampleFileName)
+
+	_ = musicLib.Index(originPath)
+	result, err := musicLib.Recognize(samplePath)
 	if err != nil {
 		t.Error(err)
 	}
 
-	if result != name {
+	if result != originName {
 		t.Error("Wrong")
 	}
 }
