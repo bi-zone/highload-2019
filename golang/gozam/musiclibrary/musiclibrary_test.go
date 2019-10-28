@@ -18,7 +18,10 @@ func TestOneTrack(t *testing.T) {
 		Port:     os.Getenv("DBPORT"),
 	}
 
-	musicLib, _ := musiclibrary.Open(cfg)
+	musicLib, err := musiclibrary.Open(cfg)
+	if err != nil {
+		t.Error(err)
+	}
 	defer musicLib.Close()
 
 	originName := "kitay brusnika himky les (forest)"
