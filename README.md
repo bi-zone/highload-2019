@@ -8,6 +8,6 @@
 
 https://github.com/bi-zone/highload-2019
 
-https://bit.ly/35Mn9gB
+http://bit.ly/BZ_HL2019
 
 ![QR code](qr.png)
