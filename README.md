@@ -4,6 +4,8 @@
 
 ## [Scala](scala/)
 
+## [Математика](math/)
+
 ## Ссылка на репозиторий
 
 https://github.com/bi-zone/highload-2019
