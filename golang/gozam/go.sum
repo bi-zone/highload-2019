@@ -14,6 +14,7 @@ github.com/flynn-archive/go-shlex v0.0.0-20150515145356-3f9db97f8568 h1:BMXYYRWT
 github.com/flynn-archive/go-shlex v0.0.0-20150515145356-3f9db97f8568/go.mod h1:rZfgFAXFS/z/lEd6LJmf9HVZ1LkgYiHx5pHhV5DR16M=
 github.com/glumpo/highload-2019 v0.0.0-20191023104911-417247e3b468 h1:LT7yXpzqpMFWOSOn4Y5tEApNGl4uZE9QRkhOTPopGfI=
 github.com/glumpo/highload-2019 v0.0.0-20191023104911-417247e3b468/go.mod h1:Jckv00f+mAXQ1U5ng6yz3UK/55RBZkxQH/Lik2Pt0f0=
+github.com/glumpo/highload-2019 v0.0.0-20191028020649-eb04fc4dad2d h1:mM47Ex9TAzFbMrZR+Lb63gHeb8z/zUqsviRoBrhQWB0=
 github.com/kisasexypantera94/go-mpg123 v0.0.0-20190109071855-864122d9eb93 h1:O8b2KNF8MzXfXL+PwUppbiqIYPq/fHhpdTfnY+7K9jY=
 github.com/kisasexypantera94/go-mpg123 v0.0.0-20190109071855-864122d9eb93/go.mod h1:T2jOlMsuYQ3INYeQUS01DtpUS7BpmVS5n1ZbPMe16pE=
 github.com/lib/pq v1.2.0 h1:LXpIM/LZ5xGFhOpXAQUIMM1HdyqzVYM13zNdjCEEcA0=

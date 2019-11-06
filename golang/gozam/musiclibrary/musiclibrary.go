@@ -2,7 +2,9 @@ package musiclibrary
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
+	"log"
 	"os"
 	"strings"
 
@@ -18,7 +20,7 @@ type MusicLibrary struct {
 
 // Open connects to existing audio repository
 func Open(cfg models.Config) (*MusicLibrary, error) {
-	fmt.Printf("Initializing library...\n\n")
+	log.Printf("Initializing library...\n\n")
 
 	db, err := models.NewDB(cfg)
 	if err != nil {
@@ -30,6 +32,9 @@ func Open(cfg models.Config) (*MusicLibrary, error) {
 
 // Close closes library
 func (lib MusicLibrary) Close() error {
+	if lib.db == nil {
+		return errors.New("Closing nil db")
+	}
 	err := lib.db.Close()
 	return err
 }
@@ -41,7 +46,7 @@ func (lib MusicLibrary) Index(filename string) error {
 	}
 
 	// NOTE: name of the song doesnt contain .mp3 nor full path
-	fmt.Printf("Indexing '%s'...\n", filename)
+	log.Printf("Indexing '%s'...\n", filename)
 	dotIdx := strings.LastIndex(filename, ".")
 	slashIdx := strings.LastIndex(filename, "/")
 	if dotIdx == -1 {
@@ -61,7 +66,7 @@ func (lib MusicLibrary) Index(filename string) error {
 
 // Recognize searches library and returns table
 func (lib MusicLibrary) Recognize(filename string) (result string, err error) {
-	fmt.Printf("Recognizing '%s'...\n", filename)
+	log.Printf("Recognizing '%s'...\n", filename)
 
 	hashArray, err := fingerprint.Fingerprint(filename)
 	if err != nil {
@@ -70,12 +75,12 @@ func (lib MusicLibrary) Recognize(filename string) (result string, err error) {
 
 	songName, err := models.Recognize(lib.db, hashArray)
 
-	result = fmt.Sprintf("Best match: %s\n", songName)
+	result = fmt.Sprintf("%s\n", songName)
 	return
 }
 
 // Delete deletes song from library
 func (lib MusicLibrary) Delete(song string) (affected int64, err error) {
-	fmt.Printf("Deleting '%s'...\n", song)
+	log.Printf("Deleting '%s'...\n", song)
 	return models.Delete(lib.db, song)
 }

@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"errors"
 	"fmt"
 
 	_ "github.com/lib/pq"
@@ -40,17 +41,17 @@ func NewDB(cfg Config) (*sql.DB, error) {
 // Index indexs song in db
 func Index(db *sql.DB, songName string, hashArray []int) error {
 	// TODO: Implement
-	return nil
+	return errors.New("Not Implemented")
 }
 
 // Recognize recognizes song in db
 func Recognize(db *sql.DB, hashArray []int) (string, error) {
 	// TODO: Implement
-	return "Not Found", nil
+	return "Not Found", errors.New("Not Implemented")
 }
 
 // Delete deletes song from bd
 func Delete(db *sql.DB, name string) (affected int64, err error) {
 	// TODO: Implement
-	return 0, nil
+	return 0, errors.New("Not Implemented")
 }

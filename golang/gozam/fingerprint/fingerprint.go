@@ -1,6 +1,7 @@
 package fingerprint
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
@@ -13,10 +14,12 @@ func Fingerprint(filename string) (hashArray []int, err error) {
 	if _, err := os.Stat(filename); os.IsNotExist(err) {
 		return nil, fmt.Errorf("Fingerprint: file not found")
 	}
+
+	// pcm64 is from pulse code modulation, 64bit float
 	pcm64, err := decode.Decode(filename)
 	_ = pcm64 // Avoid declared and not used
 
 	// TODO: Implement
 
-	return nil, err
+	return nil, errors.New("Not Implemented")
 }
