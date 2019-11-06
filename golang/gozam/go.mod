@@ -1,8 +1,8 @@
-module github.com/glumpo/highload-2019/golang/gozam
+module github.com/bi-zone/highload-2019/golang/gozam
 
 go 1.13
 
-replace github.com/bi.zone/highload-2019/golang/gozam => ../gozam
+replace github.com/bi-zone/highload-2019/golang/gozam => ../gozam
 
 require (
 	github.com/abiosoft/ishell v2.0.0+incompatible
