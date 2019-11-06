@@ -16,6 +16,15 @@ func trimExtension(fn string) string {
 }
 
 func TestOneTrack(t *testing.T) {
+	user := os.Getenv("DBUSER")
+	if user == "" {
+		t.Fatal("DBUSER env var not found")
+	}
+	dbName := os.Getenv("DBNAME")
+	if dbName == "" {
+		t.Fatal("DBNAME env var not found")
+	}
+
 	cfg := models.Config{
 		User:     os.Getenv("DBUSER"),
 		Password: os.Getenv("DBPASSWORD"),
