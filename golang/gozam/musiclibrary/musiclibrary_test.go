@@ -2,12 +2,18 @@ package musiclibrary_test
 
 import (
 	"os"
+	"path"
 	"path/filepath"
+	"strings"
 	"testing"
 
-	"github.com/glumpo/highload-2019/golang/gozam/models"
-	"github.com/glumpo/highload-2019/golang/gozam/musiclibrary"
+	"github.com/bi-zone/highload-2019/golang/gozam/models"
+	"github.com/bi-zone/highload-2019/golang/gozam/musiclibrary"
 )
+
+func trimExtension(fn string) string {
+	return strings.TrimSuffix(fn, path.Ext(fn))
+}
 
 func TestOneTrack(t *testing.T) {
 	cfg := models.Config{
@@ -18,17 +24,16 @@ func TestOneTrack(t *testing.T) {
 		Port:     os.Getenv("DBPORT"),
 	}
 
-	musicLib, _ := musiclibrary.Open(cfg)
+	musicLib, err := musiclibrary.Open(cfg)
+	if err != nil {
+		t.Error(err)
+	}
 	defer musicLib.Close()
 
-	originName := "kitay brusnika himky les (forest)"
-	sampleName := "forest"
+	originPath := "testdata/origin/kitay brusnika himky les (forest).mp3"
+	samplePath := "testdata/sample/forest.mp3"
 
-	originFileName := originName + ".mp3"
-	sampleFileName := sampleName + ".mp3"
-
-	originPath := filepath.Join("testdata/origin", originFileName)
-	samplePath := filepath.Join("testdata/sample", sampleFileName)
+	originName := trimExtension(filepath.Base(originPath))
 
 	_ = musicLib.Index(originPath)
 	result, err := musicLib.Recognize(samplePath)
