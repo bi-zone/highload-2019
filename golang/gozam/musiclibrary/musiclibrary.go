@@ -65,7 +65,7 @@ func (lib MusicLibrary) Index(filename string) error {
 }
 
 // Recognize searches library and returns table
-func (lib MusicLibrary) Recognize(filename string) (result string, err error) {
+func (lib MusicLibrary) Recognize(filename string) (string, error) {
 	log.Printf("Recognizing '%s'...\n", filename)
 
 	hashArray, err := fingerprint.Fingerprint(filename)
@@ -75,8 +75,7 @@ func (lib MusicLibrary) Recognize(filename string) (result string, err error) {
 
 	songName, err := models.Recognize(lib.db, hashArray)
 
-	result = fmt.Sprintf("%s\n", songName)
-	return
+	return songName, err
 }
 
 // Delete deletes song from library
