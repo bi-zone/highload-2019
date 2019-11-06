@@ -3,7 +3,6 @@ package musiclibrary_test
 import (
 	"os"
 	"path"
-	"log"
 	"path/filepath"
 	"strings"
 	"testing"
@@ -19,13 +18,11 @@ func trimExtension(fn string) string {
 func TestOneTrack(t *testing.T) {
 	user := os.Getenv("DBUSER")
 	if user == "" {
-		log.Fatal("DBUSER is not provided")
-		t.Error("DBUSER env var not found")
+		t.Fatal("DBUSER env var not found")
 	}
 	dbName := os.Getenv("DBNAME")
 	if dbName == "" {
-		log.Fatal("DBNAME is not provided")
-		t.Error("DBNAME env var not found")
+		t.Fatal("DBNAME env var not found")
 	}
 
 	cfg := models.Config{
