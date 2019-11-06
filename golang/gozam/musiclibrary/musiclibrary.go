@@ -46,7 +46,11 @@ func (lib MusicLibrary) Index(filename string) error {
 	}
 
 	// NOTE: name of the song doesnt contain .mp3 nor full path
+<<<<<<< HEAD
 	log.Printf("Indexing '%s'...\n", filename)
+=======
+	fmt.Printf("Indexing '%s'...\n", filename)
+>>>>>>> upstream/master
 	dotIdx := strings.LastIndex(filename, ".")
 	slashIdx := strings.LastIndex(filename, "/")
 	if dotIdx == -1 {
