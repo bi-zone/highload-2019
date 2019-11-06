@@ -8,8 +8,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/glumpo/highload-2019/golang/gozam/fingerprint"
-	"github.com/glumpo/highload-2019/golang/gozam/models"
+	"github.com/bi-zone/highload-2019/golang/gozam/fingerprint"
+	"github.com/bi-zone/highload-2019/golang/gozam/models"
 )
 
 // MusicLibrary is the central structure of the package.

@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/glumpo/highload-2019/golang/gozam/decode"
+	"github.com/bi-zone/highload-2019/golang/gozam/decode"
 )
 
 // Fingerprint constructs fingerprint for song and returns hash
