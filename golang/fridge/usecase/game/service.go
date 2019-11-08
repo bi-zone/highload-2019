@@ -70,12 +70,20 @@ func handleMatrix(in [][]byte) (sol []byte, err error) {
 
 	for i := range cl {
 		fmt.Println(string(in[i]))
+
 		cl[i].rowScore()
 	}
 
 	cl.colScore()
 
-	return []byte{'1', ',', '2', '\n'}, nil
+	col, row := cl.max()
+	res := buildResp(col, row)
+
+	return res, nil
+}
+
+func buildResp(col, row int) []byte {
+	return []byte(fmt.Sprintf("%d,%d\n", row, col))
 }
 
 func parseMatrix(in [][]byte) (cellMatrix, error) {

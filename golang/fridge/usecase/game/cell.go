@@ -62,28 +62,44 @@ func (c *cells) rowScore() {
 	}
 }
 
-func (c *cellMatrix) colScore() {
-	A:
+func (c cellMatrix) colScore() {
+A:
 	for col := 0; ; col++ {
-		B:
-		for col2 := 0; ; col2++{
+	B:
+		for col2 := 0; ; col2++ {
 			if col == col2 {
 				continue
 			}
 
-			for _, main := range *c{
-				if col >= len(main) {
+			for row, _ := range c {
+				if col >= len(c[row]) {
 					break A
 				}
 
-				if col2 >= len(main) {
+				if col2 >= len(c[row]) {
 					break B
 				}
 
-				main[col].giveScore(main[col2])
+				c[col][row].giveScore(c[col2][row])
 			}
 		}
 	}
+}
+
+func (c cellMatrix) max() (cl, rw int) {
+	var max *cell
+
+	for col := range c {
+		for row := range c[col] {
+			if max == nil || max.score < c[col][row].score {
+				max = c[col][row]
+				cl = col
+				rw = row
+			}
+		}
+	}
+
+	return cl, rw
 }
 
 func (c *cell) giveScore(affects *cell) {
