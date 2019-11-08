@@ -2,33 +2,31 @@ package main
 
 import (
 	"bufio"
+	"fridge/repo/tc"
+	"fridge/usecase/game"
 	"io"
 	"log"
-	"net"
-	"time"
 )
 
 const (
 	name     = "Шеф"
 	solution = "1,2"
+	netw     = "tcp"
+	addr     = "84.201.186.199:1337"
 )
 
 func main() {
-	conn, err := net.Dial("tcp", "84.201.186.199:1337")
-	if err != nil {
-		log.Fatal(err)
-	}
-	if err = conn.SetDeadline(time.Now().Add(10 * time.Second)); err != nil {
-		log.Fatal(err)
-	}
+	r := tc.New(netw, addr)
+	defer r.Close()
 
-	rw := bufio.NewReadWriter(bufio.NewReader(conn), bufio.NewWriter(conn))
+	g := game.New(r, name)
+	g.Play()
 
-	hello(rw)
+	/*hello(rw)
 	readPuzzle(rw.Reader)
 	sendSolution(rw)
 	readPuzzle(rw.Reader)
-	printFlag(rw.Reader)
+	printFlag(rw.Reader)*/
 }
 
 func hello(rw *bufio.ReadWriter) {
